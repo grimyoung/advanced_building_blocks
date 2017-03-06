@@ -2,12 +2,10 @@ def bubble_sort(array)
 	sorted = false
 	numsort = 0
 	until sorted do
-		for i in (0..array.length-1)
-			if i+1 < array.length
-				if array[i] > array[i+1]
-					array[i], array[i+1] = array[i+1], array[i]
-					numsort += 1
-				end
+		for i in (0..array.length-2)
+			if array[i] > array[i+1]
+				array[i], array[i+1] = array[i+1], array[i]
+				numsort += 1
 			end
 		end
 		if numsort == 0
