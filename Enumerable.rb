@@ -27,6 +27,36 @@ module Enumerable
 		return array
 	end
 
-	
+	def my_all?
+		self.my_each do |x|
+			if not yield(x)
+				return false
+			end
+		end
+		return true
+	end
+
+	def my_any?
+		self.my_each do |x|
+			if yield(x)
+				return true
+			end
+		end
+		return false
+	end
+
+	def my_none?
+		self.my_each do |x|
+			if yield(x)
+				return false
+			end
+		end
+		return true
+	end
+
+	#
+	p [1,2,3].my_none? {|x| x.is_a? Integer}
+	p [1,2,'a'].my_none? {|x| x.is_a? Integer}
+	p [nil,'a',''].my_none? {|x| x.is_a? Integer}
 
 end
