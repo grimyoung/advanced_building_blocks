@@ -1,6 +1,4 @@
 module Enumerable
-	#currently works if the object the method is called on is an array
-	#need to modify the methods to work if the object is a hash
 	def my_each
 		i = 0
 		while i < self.size
@@ -76,29 +74,50 @@ module Enumerable
 		return num
 	end
 
-	def my_map
+	# def my_map()
+	# 	array = []
+	# 	self.my_each do |x|
+	# 		array << yield(x)
+	# 	end
+	# 	return array
+	# end
+
+	#note to self, &block does not count as an argument, it is only there to convert
+	#the block into a proc
+	def my_map(proc = nil, &block)
 		array = []
-		self.my_each do |x|
-			array << yield(x)
+		if proc != nil && proc.is_a?(Proc)
+			self.my_each do |x|
+				array << proc.call(x)
+			end
+		elsif block_given?
+			self.my_each do|x|
+				array << yield(x)
+			end
 		end
 		return array
 	end
 
+	#todo include the case where a symbol operation is passed in
 	def my_inject(arg = self[0])
 		memo = arg
-		self.my_each do |memo,x|
+		self.my_each do |x|
 			memo = yield(memo,x)
 		end
 		return memo
 	end
 
-	def mutliply_els
-
+	def self.multiply_els(array)
+		return array.my_inject{|acc,x| acc*x}
 	end
 
 	#
 	p [1,2,3].my_map {|x| x*2}
-	#p [1,2,'a'].my_count {|x| x.is_a? Integer}
-	#p [1,2,2].my_count(2)
+	p [1,2,"a"].my_map {|x| x*2}
+	test = Proc.new do |x|
+		x*x
+	end
+	p [1,2,2].my_map(test)
+	p [3,4,5].my_map(test){|x| x*10}
 
 end
