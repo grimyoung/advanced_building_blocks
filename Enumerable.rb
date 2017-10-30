@@ -111,13 +111,13 @@ module Enumerable
 		return array.my_inject{|acc,x| acc*x}
 	end
 
-	#
-	p [1,2,3].my_map {|x| x*2}
-	p [1,2,"a"].my_map {|x| x*2}
-	test = Proc.new do |x|
-		x*x
-	end
-	p [1,2,2].my_map(test)
-	p [3,4,5].my_map(test){|x| x*10}
+	# #
+	# p [1,2,3].my_map {|x| x*2}
+	# p [1,2,"a"].my_map {|x| x*2}
+	# test = Proc.new do |x|
+	# 	x*x
+	# end
+	# p [1,2,2].my_map(test)
+	# p [3,4,5].my_map(test){|x| x*10}
 
 end
